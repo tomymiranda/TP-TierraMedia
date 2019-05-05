@@ -1,4 +1,4 @@
-package Clases;
+package clases;
 
 public class Porcentual extends Promocion {
 

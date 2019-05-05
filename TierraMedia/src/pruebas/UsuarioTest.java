@@ -1,9 +1,9 @@
-package Test;
+package pruebas;
 
-import org.junit.Assert;
+import org.junit.*;
 import org.junit.Test;
 
-import Clases.Usuario;
+import clases.Usuario;
 
 public class UsuarioTest {
 
