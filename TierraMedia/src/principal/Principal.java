@@ -10,16 +10,21 @@ public class Principal {
 		
 		String[][] usuarios = Archivo.Leer("usuarios");
 		String[][] atracciones = Archivo.Leer("Atracciones");
-		ArrayList<Atraccion> listaAtracciones = new ArrayList<Atraccion>();
-		/*
-		for (int x=0; x < atracciones.length; x++){
-	        for (int y=0; y < atracciones[x].length; y++)
-	              System.out.print(" | " + atracciones[x][y]+ " | ");   
-	        System.out.println("\n----------------------------------------");
-
+		ArrayList<Atraccion> listaAtracciones = crearListadoAtracciones(atracciones);
+		ArrayList<Usuario> listaUsuarios = crearListaUsuarios(usuarios);
+		
+		for (Atraccion atr : listaAtracciones) {
+			   System.out.println(atr.getNombre() + " - "  + atr.getCosto() + " - "  + atr.getTiempoDeDuracion()  + " - "  + atr.getCapacidad()  + " - "  + atr.getTipo());
 		}
-		*/
+		System.out.println("\n");
+		for (Usuario user : listaUsuarios) {
+			   System.out.println(user.getNombre() + " - "  + user.getCantidadDeMonedas() + " - "  + user.getTiempoDisponible() + " - "  + user.getTipoAtraccionPredilecta());
+		}
 
+	}
+	
+	private static ArrayList<Atraccion> crearListadoAtracciones(String[][] atracciones){
+		ArrayList<Atraccion> listaAtracciones = new ArrayList<Atraccion>();
 		for(int i = 0; i < atracciones.length; i++) {
 			switch(atracciones[i][atracciones[i].length-1]) {
 			  case "Paisaje":
@@ -44,10 +49,48 @@ public class Principal {
 				    		TipoDeAtracciones.Aventura));
 			}
 		}
-		for (Atraccion atr : listaAtracciones) {
-			   System.out.println(atr.getNombre() + " - "  + atr.getCosto() + " - "  + atr.getTiempoDeDuracion()  + " - "  + atr.getCapacidad()  + " - "  + atr.getTipo());
-			}
-
+		
+		return listaAtracciones;
 	}
-
+	
+	private static ArrayList<Usuario> crearListaUsuarios(String[][] usuarios){
+		ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();
+		
+		for(int i = 0; i < usuarios.length; i++) {
+			switch(usuarios[i][usuarios[i].length-1]) {
+			  case "Paisaje":
+				  listaUsuarios.add(new Usuario(
+							usuarios[i][0],
+							Integer.parseInt(usuarios[i][1]),
+							Double.parseDouble(usuarios[i][2]),
+							TipoDeAtracciones.Paisaje
+						));
+			    break;
+			  case "Degustacion":
+				  listaUsuarios.add(new Usuario(
+							usuarios[i][0],
+							Integer.parseInt(usuarios[i][1]),
+							Double.parseDouble(usuarios[i][2]),
+							TipoDeAtracciones.Desgustacion
+						));
+			    break;
+			  default:
+				  listaUsuarios.add(new Usuario(
+							usuarios[i][0],
+							Integer.parseInt(usuarios[i][1]),
+							Double.parseDouble(usuarios[i][2]),
+							TipoDeAtracciones.Aventura
+						));
+			}
+			
+		}
+		
+		return listaUsuarios;
+	}
+	
+	private void mostrarPosiblesAtraccionesParaUsuario() {
+		
+	}
+	
+	
 }

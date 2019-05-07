@@ -4,13 +4,14 @@ public class Usuario {
 	private String nombre;
 	private int cantidadDeMonedas;
 	private double tiempoDisponible;
-	// private tipoDeAtraccion tipoDeAtraacionPredilecta;
+	private TipoDeAtracciones tipoDeAtraccionPredilecta;
 
-	public Usuario(String nombre, int cantidadDeMonedas, double tiempoDisponible) {
+	public Usuario(String nombre, int cantidadDeMonedas, double tiempoDisponible, TipoDeAtracciones tipo) {
 
 		this.nombre = nombre;
 		this.cantidadDeMonedas = cantidadDeMonedas;
 		this.tiempoDisponible = tiempoDisponible;
+		this.tipoDeAtraccionPredilecta = tipo;
 
 	}
 
@@ -36,6 +37,14 @@ public class Usuario {
 
 	public void setTiempoDisponible(double tiempoDisponible) {
 		this.tiempoDisponible = tiempoDisponible;
+	}
+	
+	public void setTipoAtraccionPredilecta(TipoDeAtracciones tipo) {
+		this.tipoDeAtraccionPredilecta = tipo;
+	}
+	
+	public TipoDeAtracciones getTipoAtraccionPredilecta() {
+		return this.tipoDeAtraccionPredilecta;
 	}
 
 	public void obtenerInfoDeUsuarios() {
