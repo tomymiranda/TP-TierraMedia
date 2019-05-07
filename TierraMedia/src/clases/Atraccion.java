@@ -1,19 +1,21 @@
 package clases;
 
-abstract class Atraccion {
+public class Atraccion {
 
 	private String nombre;
 	private int costo;
 	private double tiempoDeDuracion;
 	int capacidad;
+	TipoDeAtracciones tipo;
 
 	public Atraccion(String nombre, int costo, double tiempoDeDuracion,
-			int capacidad) {
+			int capacidad, TipoDeAtracciones tipo) {
 
 		this.nombre = nombre;
 		this.costo = costo;
 		this.tiempoDeDuracion = tiempoDeDuracion;
 		this.capacidad = capacidad;
+		this.tipo = tipo;
 
 	}
 
@@ -47,6 +49,14 @@ abstract class Atraccion {
 
 	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
+	}
+	
+	public void setTipo(TipoDeAtracciones tipo) {
+		this.tipo = tipo;
+	}
+	
+	public TipoDeAtracciones getTipo() {
+		return this.tipo;
 	}
 
 }
