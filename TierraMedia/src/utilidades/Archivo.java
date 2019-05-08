@@ -54,6 +54,14 @@ public class Archivo {
 		       }
 			return ruta;
 		  }
+	  
+	  
+	  public static void guardar ( String[] datos ){
+		  
+		  
+		  
+
+	  }
 	
 	
 }
