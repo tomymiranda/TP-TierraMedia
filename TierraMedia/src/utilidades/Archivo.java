@@ -1,6 +1,6 @@
 package utilidades;
 import java.io.*;
-import java.util.Scanner;
+import java.util.*;
 
 public class Archivo {
 	
@@ -58,8 +58,20 @@ public class Archivo {
 	  
 	  public static void guardar ( String[] datos ){
 		  
-		  
-		  
+			String ruta = RutaActual()+File.separator+RAIZ+File.separator+File.separator+CARPETA+File.separator+"itinerario"+EXTENSION;
+			try{	
+				File archivo = new File (ruta);
+				FileReader fileReader = new FileReader (archivo);
+				BufferedWriter  bufferWrite =  new BufferedWriter(new FileWriter(archivo));
+				String nuevaLinea = "";
+				for (int i = 0; i < datos.length; i++) {
+					nuevaLinea = datos[i]+",";
+				}
+				bufferWrite.write(nuevaLinea);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+		    }
 
 	  }
 	
