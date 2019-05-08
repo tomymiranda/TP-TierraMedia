@@ -21,7 +21,7 @@ public class Archivo {
 			File archivo = new File (ruta);
 			FileReader fileReader = new FileReader (archivo);
 			BufferedReader bufferReader = new BufferedReader(fileReader);
-			bufferReader.mark(100000000);
+			bufferReader.mark(100000);
 			int lineas = (int) bufferReader.lines().count();
 			bufferReader.reset();
 			int registros = bufferReader.readLine().split(SEPARADOR).length;
