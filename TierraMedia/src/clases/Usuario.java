@@ -2,6 +2,8 @@ package clases;
 
 import java.util.*;
 
+import utilidades.Archivo;
+
 public class Usuario {
 
 	private String nombre;
@@ -63,6 +65,12 @@ public class Usuario {
 	public String toString() {
 		return "nombre: " + nombre + " | Monedas: " + cantidadDeMonedas + " | Tiempo Disponible: " + tiempoDisponible;
 	}
-
+		
+	
+	static public String [][] getUsuarios(){
+		return Archivo.Leer("usuarios");
+	}
+	
+	
 
 }

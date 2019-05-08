@@ -8,8 +8,16 @@ import java.util.*;
 public class Principal {
 
 	public static void main(String[] args) {
-		String[][] usuarios = Archivo.Leer("usuarios");
-		String[][] atracciones = Archivo.Leer("Atracciones");
+		
+		
+		
+		
+		String[][] usuarios = Usuario.getUsuarios();
+		String[][] atracciones = Atraccion.getAtracciones();
+		
+		
+		
+		
 		List<Atraccion> listaAtracciones = crearListadoAtracciones(atracciones);
 		List<Usuario> listaUsuarios = crearListaUsuarios(usuarios);
 		int atraccionSeleccionada = 0;

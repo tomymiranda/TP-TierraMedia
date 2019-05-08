@@ -1,5 +1,7 @@
 package clases;
 
+import utilidades.Archivo;
+
 public class Atraccion implements Comparable<Atraccion> {
 
 	private String nombre;
@@ -57,6 +59,10 @@ public class Atraccion implements Comparable<Atraccion> {
 	
 	public TipoDeAtracciones getTipo() {
 		return this.tipo;
+	}
+	
+	static public String[][] getAtracciones(){
+		return Archivo.Leer("Atracciones");
 	}
 	
 	@Override
