@@ -1,6 +1,6 @@
 package clases;
 
-public class Atraccion {
+public class Atraccion implements Comparable<Atraccion> {
 
 	private String nombre;
 	private int costo;
@@ -58,5 +58,19 @@ public class Atraccion {
 	public TipoDeAtracciones getTipo() {
 		return this.tipo;
 	}
+	
+	@Override
+	public String toString() {
+		return this.getNombre() + " - "  + this.getCosto() + " - "  + this.getTiempoDeDuracion()  + " - "  + this.getCapacidad()  + " - "  + this.getTipo();
+	}
 
+	@Override
+	public int compareTo(Atraccion atraccion) {
+		if(this.tipo == atraccion.tipo) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
 }
