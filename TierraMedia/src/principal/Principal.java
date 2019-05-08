@@ -1,29 +1,48 @@
 package principal;
 import clases.*;
 import utilidades.Archivo;
+
+import java.io.*;
 import java.util.*;
 
 public class Principal {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
 		String[][] usuarios = Archivo.Leer("usuarios");
 		String[][] atracciones = Archivo.Leer("Atracciones");
 		List<Atraccion> listaAtracciones = crearListadoAtracciones(atracciones);
 		List<Usuario> listaUsuarios = crearListaUsuarios(usuarios);
-		
-		mostrarPosiblesAtraccionesParaUsuario(listaUsuarios.get(0), listaAtracciones);
-		/*
-		for (Atraccion atr : listaAtracciones) {
-			   System.out.println(atr.getNombre() + " - "  + atr.getCosto() + " - "  + atr.getTiempoDeDuracion()  + " - "  + atr.getCapacidad()  + " - "  + atr.getTipo());
+		int atraccionSeleccionada = 0;
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+				
+		mostrarLista(listaUsuarios);
+		System.out.println("Seleccione el usuario ingresando el numero correspondiente: ");
+		try {
+			Usuario usuarioSeleccionado = listaUsuarios.get(Integer.parseInt(in.readLine())-1);
+			
+			
+			while(atraccionSeleccionada > -1) {
+				System.out.println("[0] - Generar itinerario");
+				mostrarPosiblesAtraccionesParaUsuario(usuarioSeleccionado, listaAtracciones);
+				System.out.println("Seleccione una opcion: ");
+				atraccionSeleccionada = Integer.parseInt(in.readLine())-1;
+				if(atraccionSeleccionada > -1) {			
+					usuarioSeleccionado.addAtraccion(listaAtracciones.get(atraccionSeleccionada));
+					usuarioSeleccionado.setCantidadDeMonedas(usuarioSeleccionado.getCantidadDeMonedas() - listaAtracciones.get(atraccionSeleccionada).getCosto());
+					usuarioSeleccionado.setTiempoDisponible(usuarioSeleccionado.getTiempoDisponible() - listaAtracciones.get(atraccionSeleccionada).getTiempoDeDuracion());
+					listaAtracciones.get(atraccionSeleccionada).setcapacidadRestante(listaAtracciones.get(atraccionSeleccionada).getcapacidadRestante()-1);
+				}
+			}
+			
+			mostrarItirenario(usuarioSeleccionado);
+			
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		System.out.println("\n");
-		for (Usuario user : listaUsuarios) {
-			   System.out.println(user.getNombre() + " - "  + user.getCantidadDeMonedas() + " - "  + user.getTiempoDisponible() + " - "  + user.getTipoAtraccionPredilecta());
-		}
-		*/
-
 	}
 	
 	private static List<Atraccion> crearListadoAtracciones(String[][] atracciones){
@@ -99,7 +118,7 @@ public class Principal {
 				
 				int result = a1.getTipo().compareTo(a2.getTipo());
 				if(result == 0) {
-					return a1.getTipo() == usuario.getTipoAtraccionPredilecta() ? -1 : 1;
+					return a1.getTipo() == usuario.getTipoAtraccionPredilecta() && a1.getCosto() > a2.getCosto() ? -1 : 1;
 				}
 				else {
 					return result;
@@ -108,19 +127,26 @@ public class Principal {
 		};
 		
 		Collections.sort(listaAtracciones, comparador);
-			
-		for (Atraccion item : listaAtracciones) {
-			if(item.getCosto() > usuario.getCantidadDeMonedas()) {
-				//listaAtracciones.remove(listaAtracciones.indexOf(item));				
-			}
-		}
-			   
+		
+		listaAtracciones.removeIf(item -> item.getCosto() >= usuario.getCantidadDeMonedas() || 
+				item.getTiempoDeDuracion() >= usuario.getTiempoDisponible() ||
+				usuario.getListaAtracciones().contains(item) ||
+				item.getcapacidadRestante() == 0);
+		
 		mostrarLista(listaAtracciones);
 	}
+
 	
-	private static void mostrarLista(Object lista){
-		for (Object item : (Iterable)lista) {
-			   System.out.println(item.toString());
+	private static void mostrarLista(List lista){
+		for (Object item : lista) {
+			   System.out.println("["+ (lista.indexOf(item)+1) +"] - " + item.toString());
 		}
 	}
+	
+	private static void mostrarItirenario(Usuario usuario) {
+		for (Atraccion atraccion : usuario.getListaAtracciones()) {
+			System.out.println(atraccion.getNombre());
+		}
+	}
+	
 }

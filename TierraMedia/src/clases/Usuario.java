@@ -1,10 +1,14 @@
 package clases;
+
+import java.util.*;
+
 public class Usuario {
 
 	private String nombre;
 	private int cantidadDeMonedas;
 	private double tiempoDisponible;
 	private TipoDeAtracciones tipoDeAtraccionPredilecta;
+	private List<Atraccion> atraccionesSeleccionadas = new ArrayList<Atraccion>();
 
 	public Usuario(String nombre, int cantidadDeMonedas, double tiempoDisponible, TipoDeAtracciones tipo) {
 
@@ -46,12 +50,19 @@ public class Usuario {
 	public TipoDeAtracciones getTipoAtraccionPredilecta() {
 		return this.tipoDeAtraccionPredilecta;
 	}
-
-	public void obtenerInfoDeUsuarios() {
-		System.out.print("nombre:" + " " + nombre + ",tiene" + " "
-				+ cantidadDeMonedas + "disponibles y tiene" + " "
-				+ tiempoDisponible
-				+ " de tiempo disponible para realizar actividades");
+	
+	public void addAtraccion(Atraccion atraccion) {
+		this.atraccionesSeleccionadas.add(atraccion);
 	}
+	
+	public List<Atraccion> getListaAtracciones(){
+		return this.atraccionesSeleccionadas;
+	}
+	
+	@Override
+	public String toString() {
+		return "nombre: " + nombre + " | Monedas: " + cantidadDeMonedas + " | Tiempo Disponible: " + tiempoDisponible;
+	}
+
 
 }

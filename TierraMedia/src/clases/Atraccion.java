@@ -5,7 +5,7 @@ public class Atraccion implements Comparable<Atraccion> {
 	private String nombre;
 	private int costo;
 	private double tiempoDeDuracion;
-	int capacidad;
+	int capacidadRestante;
 	TipoDeAtracciones tipo;
 
 	public Atraccion(String nombre, int costo, double tiempoDeDuracion,
@@ -14,7 +14,7 @@ public class Atraccion implements Comparable<Atraccion> {
 		this.nombre = nombre;
 		this.costo = costo;
 		this.tiempoDeDuracion = tiempoDeDuracion;
-		this.capacidad = capacidad;
+		this.capacidadRestante = capacidad;
 		this.tipo = tipo;
 
 	}
@@ -43,12 +43,12 @@ public class Atraccion implements Comparable<Atraccion> {
 		this.tiempoDeDuracion = tiempoDeDuracion;
 	}
 
-	public int getCapacidad() {
-		return capacidad;
+	public int getcapacidadRestante() {
+		return capacidadRestante;
 	}
 
-	public void setCapacidad(int capacidad) {
-		this.capacidad = capacidad;
+	public void setcapacidadRestante(int capacidad) {
+		this.capacidadRestante = capacidad;
 	}
 	
 	public void setTipo(TipoDeAtracciones tipo) {
@@ -61,7 +61,7 @@ public class Atraccion implements Comparable<Atraccion> {
 	
 	@Override
 	public String toString() {
-		return this.getNombre() + " - "  + this.getCosto() + " - "  + this.getTiempoDeDuracion()  + " - "  + this.getCapacidad()  + " - "  + this.getTipo();
+		return this.getNombre() + " | "  + this.getCosto() + " | "  + this.getTiempoDeDuracion()  + " | "  + this.getcapacidadRestante()  + " | "  + this.getTipo();
 	}
 
 	@Override
