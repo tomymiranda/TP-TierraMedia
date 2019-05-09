@@ -1,3 +1,3 @@
 Frodo,9,18.38,Aventura
-Gandalf,100,18.38,Paisaje
-Sam,36,8,Degustacion
+Gandalf,4,18.38,Paisaje
+Sam,6,8,Degustacion

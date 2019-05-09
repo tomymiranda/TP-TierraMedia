@@ -12,7 +12,7 @@ public class Principal {
 		String[][] atracciones = Archivo.Leer("Atracciones");
 		List<Atraccion> listaAtracciones = crearListadoAtracciones(atracciones);
 		List<Usuario> listaUsuarios = crearListaUsuarios(usuarios);
-		List<Atraccion> atraccionesParaUsuario = listaAtracciones;
+		List<Atraccion> atraccionesParaUsuario;
 		int atraccionSeleccionada;
 		Usuario usuarioSeleccionado;
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -21,7 +21,7 @@ public class Principal {
 		for(Usuario usuario : listaUsuarios) {
 			atraccionSeleccionada = 0;
 			log("Size listaAtracciones, " + listaAtracciones.size());
-			atraccionesParaUsuario = armarPosiblesAtraccionesParaUsuario(usuario, listaAtracciones);
+			atraccionesParaUsuario = armarPosiblesAtraccionesParaUsuario(usuario, crearListadoAtracciones(atracciones));
 			log("atraccionSeleccionada " + atraccionSeleccionada);
 			log("size " + atraccionesParaUsuario.size());
 				while(atraccionesParaUsuario.size() > 0) {
