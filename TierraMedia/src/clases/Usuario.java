@@ -59,9 +59,22 @@ public class Usuario {
 		return this.atraccionesSeleccionadas;
 	}
 	
+	public String getMonedasYTiempoRestante() {
+		return "Monedas: " + cantidadDeMonedas + " | Tiempo Disponible: " + tiempoDisponible;
+	}
+	
 	@Override
 	public String toString() {
 		return "nombre: " + nombre + " | Monedas: " + cantidadDeMonedas + " | Tiempo Disponible: " + tiempoDisponible;
+	}
+	
+	public int compare(TipoDeAtracciones tipo) {
+		if(tipo == this.tipoDeAtraccionPredilecta) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
 
 

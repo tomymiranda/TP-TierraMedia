@@ -12,37 +12,57 @@ public class Principal {
 		String[][] atracciones = Archivo.Leer("Atracciones");
 		List<Atraccion> listaAtracciones = crearListadoAtracciones(atracciones);
 		List<Usuario> listaUsuarios = crearListaUsuarios(usuarios);
-		int atraccionSeleccionada = 0;
+		List<Atraccion> atraccionesParaUsuario = listaAtracciones;
+		int atraccionSeleccionada;
+		Usuario usuarioSeleccionado;
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-				
-		mostrarLista(listaUsuarios);
-		System.out.println("Seleccione el usuario ingresando el numero correspondiente: ");
+		
 		try {
-			Usuario usuarioSeleccionado = listaUsuarios.get(Integer.parseInt(in.readLine())-1);
-			
-			
-			while(atraccionSeleccionada > -1) {
-				System.out.println("[0] - Generar itinerario");
-				mostrarPosiblesAtraccionesParaUsuario(usuarioSeleccionado, listaAtracciones);
-				System.out.println("Seleccione una opcion: ");
-				atraccionSeleccionada = Integer.parseInt(in.readLine())-1;
-				if(atraccionSeleccionada > -1) {			
-					usuarioSeleccionado.addAtraccion(listaAtracciones.get(atraccionSeleccionada));
-					usuarioSeleccionado.setCantidadDeMonedas(usuarioSeleccionado.getCantidadDeMonedas() - listaAtracciones.get(atraccionSeleccionada).getCosto());
-					usuarioSeleccionado.setTiempoDisponible(usuarioSeleccionado.getTiempoDisponible() - listaAtracciones.get(atraccionSeleccionada).getTiempoDeDuracion());
-					listaAtracciones.get(atraccionSeleccionada).setcapacidadRestante(listaAtracciones.get(atraccionSeleccionada).getcapacidadRestante()-1);
+		for(Usuario usuario : listaUsuarios) {
+			atraccionSeleccionada = 0;
+			log("Size listaAtracciones, " + listaAtracciones.size());
+			atraccionesParaUsuario = armarPosiblesAtraccionesParaUsuario(usuario, listaAtracciones);
+			log("atraccionSeleccionada " + atraccionSeleccionada);
+			log("size " + atraccionesParaUsuario.size());
+				while(atraccionesParaUsuario.size() > 0) {
+					
+					System.out.println("Atracciones para " + usuario.getNombre());
+					System.out.println(usuario.getMonedasYTiempoRestante());
+					mostrarLista(atraccionesParaUsuario);
+					System.out.println("Seleccione una opcion: ");
+					atraccionSeleccionada = Integer.parseInt(in.readLine())-1;
+					System.out.println("Se selecciono la atraccion: " + atraccionesParaUsuario.get(atraccionSeleccionada).getNombre());
+					
+					if(atraccionSeleccionada > -1 && atraccionesParaUsuario.size() >= atraccionSeleccionada) {	
+						try {
+							usuario.addAtraccion(atraccionesParaUsuario.get(atraccionSeleccionada));
+							usuario.setCantidadDeMonedas(usuario.getCantidadDeMonedas() - atraccionesParaUsuario.get(atraccionSeleccionada).getCosto());
+							usuario.setTiempoDisponible(usuario.getTiempoDisponible() - atraccionesParaUsuario.get(atraccionSeleccionada).getTiempoDeDuracion());
+							atraccionesParaUsuario.get(atraccionSeleccionada).setcapacidadRestante(atraccionesParaUsuario.get(atraccionSeleccionada).getcapacidadRestante()-1);
+						}
+						catch(Exception e) {
+							System.out.println("Error: " + e.getMessage());
+						}
+					}
+					else {
+						log("Numero invalido");
+					}
+					atraccionesParaUsuario = armarPosiblesAtraccionesParaUsuario(usuario, atraccionesParaUsuario);
+					log("final while dentro, " + atraccionesParaUsuario.size());
 				}
-			}
-			
-			mostrarItirenario(usuarioSeleccionado);
-			
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				log("final while fuera");
+		};
 		}
+		
+		catch(Exception e) {
+			System.err.println(e);
+		}
+		
+		for(Usuario user : listaUsuarios) {
+			System.out.println("Itinerario para: " + user.getNombre());
+			mostrarItirenario(user);		
+		}
+		
 	}
 	
 	private static List<Atraccion> crearListadoAtracciones(String[][] atracciones){
@@ -79,6 +99,7 @@ public class Principal {
 		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 		
 		for(int i = 0; i < usuarios.length; i++) {
+			
 			switch(usuarios[i][usuarios[i].length-1]) {
 			  case "Paisaje":
 				  listaUsuarios.add(new Usuario(
@@ -110,30 +131,26 @@ public class Principal {
 		return listaUsuarios;
 	}
 	
-	private static void mostrarPosiblesAtraccionesParaUsuario(Usuario usuario, List<Atraccion> listaAtracciones) {
+	private static List<Atraccion> armarPosiblesAtraccionesParaUsuario(Usuario usuario, List<Atraccion> listadoAtracciones) {
 		
 		Comparator<Atraccion> comparador = new Comparator<Atraccion>() {
 			@Override
 			public int compare(Atraccion a1, Atraccion a2) {
-				
-				int result = a1.getTipo().compareTo(a2.getTipo());
-				if(result == 0) {
-					return a1.getTipo() == usuario.getTipoAtraccionPredilecta() && a1.getCosto() > a2.getCosto() ? -1 : 1;
-				}
-				else {
-					return result;
-				}
+					if(a1.getTipo() == usuario.getTipoAtraccionPredilecta() ? false : true) {
+						return a1.getCosto() > a2.getCosto() ? -1 : 1;
+					}
+					return -1;
 			}
 		};
 		
-		Collections.sort(listaAtracciones, comparador);
+		Collections.sort(listadoAtracciones, comparador);
 		
-		listaAtracciones.removeIf(item -> item.getCosto() >= usuario.getCantidadDeMonedas() || 
+		listadoAtracciones.removeIf(item -> item.getCosto() >= usuario.getCantidadDeMonedas() || 
 				item.getTiempoDeDuracion() >= usuario.getTiempoDisponible() ||
 				usuario.getListaAtracciones().contains(item) ||
 				item.getcapacidadRestante() == 0);
 		
-		mostrarLista(listaAtracciones);
+		return listadoAtracciones;
 	}
 
 	
@@ -147,6 +164,10 @@ public class Principal {
 		for (Atraccion atraccion : usuario.getListaAtracciones()) {
 			System.out.println(atraccion.getNombre());
 		}
+	}
+	
+	private static void log(String texto) {
+		System.out.println(texto);
 	}
 	
 }
