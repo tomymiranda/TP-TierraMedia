@@ -2,8 +2,8 @@ package pruebas;
 
 import org.junit.*;
 
-import clases.TipoDeAtracciones;
-import clases.Usuario;
+import componentes.TipoDeAtracciones;
+import componentes.Usuario;
 
 public class UsuarioTest {
 

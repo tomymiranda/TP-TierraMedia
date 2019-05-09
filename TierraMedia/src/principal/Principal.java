@@ -1,9 +1,10 @@
 package principal;
-import clases.*;
 import utilidades.Archivo;
 
 import java.io.*;
 import java.util.*;
+
+import componentes.*;
 
 public class Principal {
 
