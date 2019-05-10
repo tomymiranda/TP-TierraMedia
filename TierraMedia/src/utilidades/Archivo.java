@@ -1,6 +1,7 @@
 package utilidades;
 import java.io.*;
 import java.util.*;
+import clases.*;
 
 public class Archivo {
 	
@@ -12,35 +13,45 @@ public class Archivo {
     static FileReader fileReader = null;
     static BufferedReader bufferReader = null;
     static String linea = "";
-    static String[][] contenido;
-	
-	public static String[][] Leer( String path) {
+    	
+	public static List Leer( String path) throws Exception {
 		
-		String ruta = RutaActual()+File.separator+RAIZ+File.separator+File.separator+CARPETA+File.separator+path+EXTENSION;
+		String ruta = RutaActual()+File.separator+RAIZ+File.separator+File.separator+CARPETA+File.separator+path.toLowerCase()+EXTENSION;
 		try{			
 			File archivo = new File (ruta);
 			FileReader fileReader = new FileReader (archivo);
 			BufferedReader bufferReader = new BufferedReader(fileReader);
-			bufferReader.mark(100000);
-			int lineas = (int) bufferReader.lines().count();
-			bufferReader.reset();
-			int registros = bufferReader.readLine().split(SEPARADOR).length;
-			bufferReader.reset();
-			contenido = new String[lineas][registros];
-			int contador = 0;
-			while ((linea = bufferReader.readLine()) != null) { 
-			        String[] datos = linea.split(SEPARADOR);
-			        for(int i = 0; i < registros; i++){
-			        	contenido[contador][i] = datos[i];
-			        }
-			        contador++; 
+			
+			
+			switch(path.toUpperCase()) {
+				case "ATRACCIONES":
+					List listaAtracciones = new ArrayList<Atraccion>();
+					
+					while ((linea = bufferReader.readLine()) != null) {
+						String[] datos = linea.split(SEPARADOR);
+						listaAtracciones.add(crearAtraccion(datos));
+					}
+					
+					return listaAtracciones;
+					
+				case "USUARIOS":
+					List listaUsuarios = new ArrayList<Usuario>();
+					
+					while ((linea = bufferReader.readLine()) != null) {
+						String[] datos = linea.split(SEPARADOR);
+						listaUsuarios.add(crearUsuario(datos));
+						
+					}
+					return listaUsuarios;
+				default:
+					return new ArrayList<Promocion>();
 			}
+			
 				
 		}catch(Exception e) {
-		      e.printStackTrace();
+		     throw new Exception(e.getMessage());
 		}
-	
-		return contenido;
+
 	
 	}
 	
@@ -75,5 +86,55 @@ public class Archivo {
 
 	  }
 	
-	
+	  private static Atraccion crearAtraccion(String[] datos) {
+		  
+		  switch(datos[3]) {
+			 case "Aventura":
+				 return new Atraccion(datos[0],
+				    		Integer.parseInt(datos[1]),
+				    		Double.parseDouble(datos[2]),
+				    		Integer.parseInt(datos[3]),
+				    		TipoDeAtracciones.Aventura);
+			 case "Degustacion":
+				 return new Atraccion(datos[0],
+				    		Integer.parseInt(datos[1]),
+				    		Double.parseDouble(datos[2]),
+				    		Integer.parseInt(datos[3]),
+				    		TipoDeAtracciones.Desgustacion);
+			 default:
+				 return new Atraccion(datos[0],
+				    		Integer.parseInt(datos[1]),
+				    		Double.parseDouble(datos[2]),
+				    		Integer.parseInt(datos[3]),
+				    		TipoDeAtracciones.Paisaje);
+		 }
+		  
+	  }
+	  
+	  private static Usuario crearUsuario(String[] datos) {
+		  switch(datos[3]) {
+			 case "Aventura":
+				 return new Usuario(
+							datos[0],
+							Integer.parseInt(datos[1]),
+							Double.parseDouble(datos[2]),
+							TipoDeAtracciones.Aventura
+						);
+			 case "Degustacion":
+				 return new Usuario(
+							datos[0],
+							Integer.parseInt(datos[1]),
+							Double.parseDouble(datos[2]),
+							TipoDeAtracciones.Desgustacion
+						);
+			 default:
+				 return new Usuario(
+							datos[0],
+							Integer.parseInt(datos[1]),
+							Double.parseDouble(datos[2]),
+							TipoDeAtracciones.Paisaje
+						);
+		 }
+		  
+	  }
 }
