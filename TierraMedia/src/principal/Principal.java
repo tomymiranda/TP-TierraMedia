@@ -1,37 +1,37 @@
 package principal;
 import clases.*;
-import utilidades.Archivo;
+import utilidades.*;
 
 import java.io.*;
 import java.util.*;
 
 public class Principal {
 
-	public static void main(String[] args) {
-		String[][] usuarios = Archivo.Leer("usuarios");
-		String[][] atracciones = Archivo.Leer("Atracciones");
-		List<Atraccion> listaAtracciones = crearListadoAtracciones(atracciones);
-		List<Usuario> listaUsuarios = crearListaUsuarios(usuarios);
-		List<Atraccion> atraccionesParaUsuario;
-		int atraccionSeleccionada;
-		Usuario usuarioSeleccionado;
+	private static List<Atraccion> listaAtraccionesUsuario; 
+	private static List<Atraccion> atraccionesParaUsuario;
+	private static int atraccionSeleccionada;
+	
+	public static void main(String[] args) throws Exception {
+		List<Usuario> listaUsuarios = Archivo.Leer("Usuarios");
+		List<Atraccion> listaAtraccionesGeneral = Archivo.Leer("Atracciones");
+		
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		
 		try {
 		for(Usuario usuario : listaUsuarios) {
+			listaAtraccionesUsuario = new ArrayList<Atraccion>();
+			listaAtraccionesUsuario.addAll(listaAtraccionesGeneral);
 			atraccionSeleccionada = 0;
-			log("Size listaAtracciones, " + listaAtracciones.size());
-			atraccionesParaUsuario = armarPosiblesAtraccionesParaUsuario(usuario, crearListadoAtracciones(atracciones));
-			log("atraccionSeleccionada " + atraccionSeleccionada);
-			log("size " + atraccionesParaUsuario.size());
+			atraccionesParaUsuario = armarPosiblesAtraccionesParaUsuario(usuario, listaAtraccionesUsuario);
+			
 				while(atraccionesParaUsuario.size() > 0) {
 					
-					System.out.println("Atracciones para " + usuario.getNombre());
-					System.out.println(usuario.getMonedasYTiempoRestante());
-					mostrarLista(atraccionesParaUsuario);
-					System.out.println("Seleccione una opcion: ");
+					Visualizador.log("Atracciones para " + usuario.getNombre());
+					Visualizador.log(usuario.getMonedasYTiempoRestante());
+					Visualizador.mostrarLista(atraccionesParaUsuario);
+					Visualizador.log("Seleccione una opcion: ");
 					atraccionSeleccionada = Integer.parseInt(in.readLine())-1;
-					System.out.println("Se selecciono la atraccion: " + atraccionesParaUsuario.get(atraccionSeleccionada).getNombre());
+					Visualizador.log("Se selecciono la atraccion: " + atraccionesParaUsuario.get(atraccionSeleccionada).getNombre());
 					
 					if(atraccionSeleccionada > -1 && atraccionesParaUsuario.size() >= atraccionSeleccionada) {	
 						try {
@@ -45,12 +45,10 @@ public class Principal {
 						}
 					}
 					else {
-						log("Numero invalido");
+						Visualizador.log("Numero invalido");
 					}
 					atraccionesParaUsuario = armarPosiblesAtraccionesParaUsuario(usuario, atraccionesParaUsuario);
-					log("final while dentro, " + atraccionesParaUsuario.size());
 				}
-				log("final while fuera");
 		};
 		}
 		
@@ -60,75 +58,9 @@ public class Principal {
 		
 		for(Usuario user : listaUsuarios) {
 			System.out.println("Itinerario para: " + user.getNombre());
-			mostrarItirenario(user);		
+			Visualizador.mostrarItirenario(user);		
 		}
 		
-	}
-	
-	private static List<Atraccion> crearListadoAtracciones(String[][] atracciones){
-		List<Atraccion> listaAtracciones = new ArrayList<Atraccion>();
-		for(int i = 0; i < atracciones.length; i++) {
-			switch(atracciones[i][atracciones[i].length-1]) {
-			  case "Paisaje":
-			    listaAtracciones.add(new Atraccion(atracciones[i][0],
-			    		Integer.parseInt(atracciones[i][1]),
-			    		Double.parseDouble(atracciones[i][2]),
-			    		Integer.parseInt(atracciones[i][3]),
-			    		TipoDeAtracciones.Paisaje));
-			    break;
-			  case "Degustacion":
-				  listaAtracciones.add(new Atraccion(atracciones[i][0],
-				    		Integer.parseInt(atracciones[i][1]),
-				    		Double.parseDouble(atracciones[i][2]),
-				    		Integer.parseInt(atracciones[i][3]),
-				    		TipoDeAtracciones.Desgustacion));
-			    break;
-			  default:
-				  listaAtracciones.add(new Atraccion(atracciones[i][0],
-				    		Integer.parseInt(atracciones[i][1]),
-				    		Double.parseDouble(atracciones[i][2]),
-				    		Integer.parseInt(atracciones[i][3]),
-				    		TipoDeAtracciones.Aventura));
-			}
-		}
-		
-		return listaAtracciones;
-	}
-	
-	private static List<Usuario> crearListaUsuarios(String[][] usuarios){
-		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
-		
-		for(int i = 0; i < usuarios.length; i++) {
-			
-			switch(usuarios[i][usuarios[i].length-1]) {
-			  case "Paisaje":
-				  listaUsuarios.add(new Usuario(
-							usuarios[i][0],
-							Integer.parseInt(usuarios[i][1]),
-							Double.parseDouble(usuarios[i][2]),
-							TipoDeAtracciones.Paisaje
-						));
-			    break;
-			  case "Degustacion":
-				  listaUsuarios.add(new Usuario(
-							usuarios[i][0],
-							Integer.parseInt(usuarios[i][1]),
-							Double.parseDouble(usuarios[i][2]),
-							TipoDeAtracciones.Desgustacion
-						));
-			    break;
-			  default:
-				  listaUsuarios.add(new Usuario(
-							usuarios[i][0],
-							Integer.parseInt(usuarios[i][1]),
-							Double.parseDouble(usuarios[i][2]),
-							TipoDeAtracciones.Aventura
-						));
-			}
-			
-		}
-		
-		return listaUsuarios;
 	}
 	
 	private static List<Atraccion> armarPosiblesAtraccionesParaUsuario(Usuario usuario, List<Atraccion> listadoAtracciones) {
@@ -154,20 +86,6 @@ public class Principal {
 	}
 
 	
-	private static void mostrarLista(List lista){
-		for (Object item : lista) {
-			   System.out.println("["+ (lista.indexOf(item)+1) +"] - " + item.toString());
-		}
-	}
-	
-	private static void mostrarItirenario(Usuario usuario) {
-		for (Atraccion atraccion : usuario.getListaAtracciones()) {
-			System.out.println(atraccion.getNombre());
-		}
-	}
-	
-	private static void log(String texto) {
-		System.out.println(texto);
-	}
+
 	
 }
