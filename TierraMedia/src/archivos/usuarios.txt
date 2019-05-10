@@ -1,3 +1,6 @@
-Frodo,9,18.38,Aventura
-Gandalf,4,18.38,Paisaje
-Sam,6,8,Degustacion
+Frodo,10,8,Aventura
+Gandalf,100,5,Paisaje
+Sam,36,8,Degustacion
+Aragorn,20,4,Aventura
+Legolas,6,4,Paisaje
+Smeagle,35,1,Degustacion
