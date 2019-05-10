@@ -27,14 +27,16 @@ public class Principal {
 			
 				while(atraccionesParaUsuario.size() > 0) {
 					
-					Visualizador.log("Atracciones para " + usuario.getNombre());
+					Visualizador.log("Atracciones para " + usuario.getNombre() + "\n");
 					Visualizador.log(usuario.getMonedasYTiempoRestante());
 					Visualizador.mostrarLista(atraccionesParaUsuario);
 					Visualizador.log("Seleccione una opcion: ");
 					atraccionSeleccionada = Integer.parseInt(in.readLine())-1;
-					Visualizador.log("Se selecciono la atraccion: " + atraccionesParaUsuario.get(atraccionSeleccionada).getNombre());
+					
 					
 					if(atraccionSeleccionada > -1 && atraccionesParaUsuario.size() >= atraccionSeleccionada) {	
+						
+						Visualizador.log("Se selecciono la atraccion: " + atraccionesParaUsuario.get(atraccionSeleccionada).getNombre());
 						try {
 							usuario.addAtraccion(atraccionesParaUsuario.get(atraccionSeleccionada));
 							usuario.setCantidadDeMonedas(usuario.getCantidadDeMonedas() - atraccionesParaUsuario.get(atraccionSeleccionada).getCosto());
