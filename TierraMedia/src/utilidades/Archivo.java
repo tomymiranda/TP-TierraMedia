@@ -1,7 +1,7 @@
 package utilidades;
 import java.io.*;
 import java.util.*;
-import clases.*;
+import componentes.*;
 
 public class Archivo {
 	
@@ -88,7 +88,7 @@ public class Archivo {
 	
 	  private static Atraccion crearAtraccion(String[] datos) {
 		  
-		  switch(datos[3]) {
+		  switch(datos[4]) {
 			 case "Aventura":
 				 return new Atraccion(datos[0],
 				    		Integer.parseInt(datos[1]),

@@ -1,5 +1,4 @@
 package principal;
-import clases.*;
 import utilidades.*;
 
 import java.io.*;
@@ -60,7 +59,7 @@ public class Principal {
 		
 		for(Usuario user : listaUsuarios) {
 			System.out.println("Itinerario para: " + user.getNombre());
-			Visualizador.mostrarItirenario(user);		
+			Visualizador.mostrarItinerario(user);		
 		}
 		
 	}

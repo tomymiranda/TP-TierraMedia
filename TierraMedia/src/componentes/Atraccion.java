@@ -1,6 +1,7 @@
 package componentes;
 
-import utilidades.Archivo;
+import utilidades.*;
+import java.util.*;
 
 public class Atraccion implements Comparable<Atraccion> {
 
@@ -61,7 +62,7 @@ public class Atraccion implements Comparable<Atraccion> {
 		return this.tipo;
 	}
 	
-	static public String[][] getAtracciones(){
+	static public List getAtracciones() throws Exception{
 		return Archivo.Leer("Atracciones");
 	}
 	

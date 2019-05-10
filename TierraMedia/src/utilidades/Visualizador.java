@@ -2,8 +2,7 @@ package utilidades;
 
 import java.util.List;
 
-import clases.Atraccion;
-import clases.Usuario;
+import componentes.*;
 
 public class Visualizador {
 	
@@ -13,7 +12,7 @@ public class Visualizador {
 		}
 	}
 	
-	public static void mostrarItirenario(Usuario usuario) {
+	public static void mostrarItinerario(Usuario usuario) {
 		for (Atraccion atraccion : usuario.getListaAtracciones()) {
 			System.out.println(atraccion.getNombre());
 		}
