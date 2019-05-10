@@ -13,6 +13,8 @@ public class Archivo {
     static FileReader fileReader = null;
     static BufferedReader bufferReader = null;
     static String linea = "";
+    private static FileWriter fileWriter = null;
+	private static BufferedWriter bufferWriter = null;
     	
 	public static List Leer( String path) throws Exception {
 		
@@ -55,6 +57,8 @@ public class Archivo {
 	
 	}
 	
+	
+	
 	  public static String RutaActual () {
 		  	String ruta = "";
 		     File directorio = new File (".");
@@ -67,23 +71,48 @@ public class Archivo {
 		  }
 	  
 	  
-	  public static void guardar ( String[] datos ){
+	  public static void guardar ( List<String> datos ){
 		  
-			String ruta = RutaActual()+File.separator+RAIZ+File.separator+File.separator+CARPETA+File.separator+"itinerario"+EXTENSION;
+			String ruta = RutaActual()+File.separator+RAIZ+File.separator+CARPETA+File.separator+"itinerario"+EXTENSION;
+			Visualizador.log("Guardando... ");
 			try{	
-				File archivo = new File (ruta);
-				FileReader fileReader = new FileReader (archivo);
-				BufferedWriter  bufferWrite =  new BufferedWriter(new FileWriter(archivo));
-				String nuevaLinea = "";
-				for (int i = 0; i < datos.length; i++) {
-					nuevaLinea = datos[i]+",";
+				fileWriter = new FileWriter(ruta, false);
+				bufferWriter =  new BufferedWriter(fileWriter);
+			
+				for(String dato : datos) {
+					bufferWriter.write(dato);					
 				}
-				bufferWrite.write(nuevaLinea);
+				
 				
 			}catch(Exception e) {
-				e.printStackTrace();
-		    }
+				System.err.format("IOException: %s%n", e);
+		    } finally {
+	            try {
+	                if (bufferWriter != null)
+	                    bufferWriter.close();
+	                if(fileWriter != null)
+	                	fileWriter.close();
+	            } catch (IOException ex) {
+	                System.err.format("IOException: %s%n", ex);
+	            }
+	        }
 
+	  }
+	  
+	  public static void generarItinerarios(List<Usuario> listaUsuarios) {
+		  Visualizador.log("Generando...");
+		  List<String> itinerarios = new ArrayList<String>();
+		  String linea = "";
+		  for(Usuario user : listaUsuarios) {
+			  	linea = "";
+				linea += "----------------------------------------------------------\n";
+				linea += "Itinerario para: " + user.getNombre() + "\n";
+				linea += Visualizador.generarItinerarioPorUsuario(user);
+				itinerarios.add(linea);		
+		  }
+		  
+		  guardar(itinerarios);
+		  
 	  }
 	
 	  private static Atraccion crearAtraccion(String[] datos) {

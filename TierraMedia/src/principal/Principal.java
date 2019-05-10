@@ -22,11 +22,11 @@ public class Principal {
 		for(Usuario usuario : listaUsuarios) {
 			listaAtraccionesUsuario = new ArrayList<Atraccion>();
 			listaAtraccionesUsuario.addAll(listaAtraccionesGeneral);
-			atraccionSeleccionada = 0;
 			atraccionesParaUsuario = armarPosiblesAtraccionesParaUsuario(usuario, listaAtraccionesUsuario);
 			
 				while(atraccionesParaUsuario.size() > 0) {
-					
+					atraccionSeleccionada = 0;
+					Visualizador.log("--------------------------------------------------------\n");
 					Visualizador.log("Atracciones para " + usuario.getNombre() + "\n");
 					Visualizador.log(usuario.getMonedasYTiempoRestante());
 					Visualizador.mostrarLista(atraccionesParaUsuario);
@@ -34,7 +34,7 @@ public class Principal {
 					atraccionSeleccionada = Integer.parseInt(in.readLine())-1;
 					
 					
-					if(atraccionSeleccionada > -1 && atraccionesParaUsuario.size() >= atraccionSeleccionada) {	
+					if(atraccionSeleccionada > -1 && atraccionesParaUsuario.size() > atraccionSeleccionada) {	
 						
 						Visualizador.log("Se selecciono la atraccion: " + atraccionesParaUsuario.get(atraccionSeleccionada).getNombre());
 						try {
@@ -59,10 +59,7 @@ public class Principal {
 			System.err.println(e);
 		}
 		
-		for(Usuario user : listaUsuarios) {
-			System.out.println("Itinerario para: " + user.getNombre());
-			Visualizador.mostrarItinerario(user);		
-		}
+		Archivo.generarItinerarios(listaUsuarios);
 		
 	}
 	

@@ -1,0 +1,13 @@
+----------------------------------------------------------
+Itinerario para: Frodo
+- Atraccion: Atraccion2 | Tiempo de Duracion: 3.0
+- Atraccion: Atraccion1 | Tiempo de Duracion: 4.0
+Total de monedas requeridas: 7 | Total de tiempo requerido: 7.0
+----------------------------------------------------------
+Itinerario para: Gandalf
+- Atraccion: Atraccion1 | Tiempo de Duracion: 4.0
+Total de monedas requeridas: 3 | Total de tiempo requerido: 4.0
+----------------------------------------------------------
+Itinerario para: Sam
+- Atraccion: Atraccion3 | Tiempo de Duracion: 3.0
+Total de monedas requeridas: 5 | Total de tiempo requerido: 3.0
