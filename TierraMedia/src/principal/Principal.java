@@ -12,7 +12,7 @@ public class Principal {
 	private static int atraccionSeleccionada;
 	
 	public static void main(String[] args) throws Exception {
-		List<Usuario> listaUsuarios = Archivo.Leer("Usuarios");
+		List<Usuario> listaUsuarios = Archivo.Leer("usuarios");
 		List<Atraccion> listaAtraccionesGeneral = Archivo.Leer("Atracciones");
 		
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));

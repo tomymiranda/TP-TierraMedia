@@ -23,8 +23,8 @@ public class Archivo {
 			BufferedReader bufferReader = new BufferedReader(fileReader);
 			
 			
-			switch(path) {
-				case "Atracciones":
+			switch(path.toUpperCase()) {
+				case "ATRACCIONES":
 					List listaAtracciones = new ArrayList<Atraccion>();
 					
 					while ((linea = bufferReader.readLine()) != null) {
@@ -34,7 +34,7 @@ public class Archivo {
 					
 					return listaAtracciones;
 					
-				case "Usuarios":
+				case "USUARIOS":
 					List listaUsuarios = new ArrayList<Usuario>();
 					
 					while ((linea = bufferReader.readLine()) != null) {
