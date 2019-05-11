@@ -5,61 +5,89 @@ import componentes.*;
 
 public class Archivo {
 	
-	static final String EXTENSION = ".txt";
-	static final String CARPETA = "archivos";
-	static final String RAIZ = "src";
-	static final String SEPARADOR = ",";
+	final String EXTENSION = ".txt";
+	final String CARPETA = "archivos";
+	final String RAIZ = "src";
+	final String SEPARADOR = ",";
 	File archivo = null;
-    static FileReader fileReader = null;
-    static BufferedReader bufferReader = null;
-    static String linea = "";
-    private static FileWriter fileWriter = null;
-	private static BufferedWriter bufferWriter = null;
+    FileReader fileReader = null;
+    BufferedReader bufferReader = null;
+    String linea = "";
+    FileWriter fileWriter = null;
+	BufferedWriter bufferWriter = null;
+	Visualizador view = new Visualizador();
     	
-	public static List Leer( String path) throws Exception {
+	public List<Usuario> LeerUsuarios(String path) {
 		
-		String ruta = RutaActual()+File.separator+RAIZ+File.separator+File.separator+CARPETA+File.separator+path.toLowerCase()+EXTENSION;
-		try{			
+		String ruta = RutaActual()+File.separator+RAIZ+File.separator+CARPETA+File.separator+path.toLowerCase()+EXTENSION;
+		List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+			
+		try {
 			File archivo = new File (ruta);
-			FileReader fileReader = new FileReader (archivo);
+			FileReader fileReader;
+			fileReader = new FileReader (archivo);
 			BufferedReader bufferReader = new BufferedReader(fileReader);
 			
-			
-			switch(path.toUpperCase()) {
-				case "ATRACCIONES":
-					List listaAtracciones = new ArrayList<Atraccion>();
-					
-					while ((linea = bufferReader.readLine()) != null) {
-						String[] datos = linea.split(SEPARADOR);
-						listaAtracciones.add(crearAtraccion(datos));
-					}
-					
-					return listaAtracciones;
-					
-				case "USUARIOS":
-					List listaUsuarios = new ArrayList<Usuario>();
-					
-					while ((linea = bufferReader.readLine()) != null) {
-						String[] datos = linea.split(SEPARADOR);
-						listaUsuarios.add(crearUsuario(datos));
-						
-					}
-					return listaUsuarios;
-				default:
-					return new ArrayList<Promocion>();
+			while ((linea = bufferReader.readLine()) != null) {
+				String[] datos = linea.split(SEPARADOR);
+				listaUsuarios.add(crearUsuario(datos));
+				
 			}
 			
-				
-		}catch(Exception e) {
-		     throw new Exception(e.getMessage());
+		} catch ( IOException e) {
+			//Exception problema al leer el archivo
+			e.printStackTrace();
 		}
-
+		finally {
+			try {
+				if(bufferReader != null)
+					bufferReader.close();								
+			}
+			catch(IOException e) {
+				//Exception que no se pudo cerra el reader
+				e.printStackTrace();
+			}
+		}
 	
+		return listaUsuarios;
 	}
 	
+public List<Atraccion> LeerAtracciones(String path) {
+		
+		String ruta = RutaActual()+File.separator+RAIZ+File.separator+CARPETA+File.separator+path.toLowerCase()+EXTENSION;
+		List<Atraccion> listaAtracciones = new ArrayList<Atraccion>();
+			
+		try {
+			File archivo = new File (ruta);
+			FileReader fileReader;
+			fileReader = new FileReader (archivo);
+			BufferedReader bufferReader = new BufferedReader(fileReader);
+			
+			while ((linea = bufferReader.readLine()) != null) {
+				String[] datos = linea.split(SEPARADOR);
+				listaAtracciones.add(crearAtraccion(datos));
+				
+			}
+			
+		} catch ( IOException e) {
+			//Exception problema al leer el archivo
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(bufferReader != null)
+					bufferReader.close();								
+			}
+			catch(IOException e) {
+				//Exception que no se pudo cerra el reader
+				e.printStackTrace();
+			}
+		}
 	
+		return listaAtracciones;
+	}
 	
-	  public static String RutaActual () {
+	public  String RutaActual () {
 		  	String ruta = "";
 		     File directorio = new File (".");
 		     try {
@@ -70,11 +98,10 @@ public class Archivo {
 			return ruta;
 		  }
 	  
-	  
-	  public static void guardar ( List<String> datos ){
+	public void guardar( List<String> datos ){
 		  
 			String ruta = RutaActual()+File.separator+RAIZ+File.separator+CARPETA+File.separator+"itinerario"+EXTENSION;
-			Visualizador.log("Guardando... ");
+			view.log("Guardando... ");
 			try{	
 				fileWriter = new FileWriter(ruta, false);
 				bufferWriter =  new BufferedWriter(fileWriter);
@@ -99,15 +126,15 @@ public class Archivo {
 
 	  }
 	  
-	  public static void generarItinerarios(List<Usuario> listaUsuarios) {
-		  Visualizador.log("Generando...");
+	public void generarItinerarios(List<Usuario> listaUsuarios) {
+		  view.log("Generando...");
 		  List<String> itinerarios = new ArrayList<String>();
 		  String linea = "";
 		  for(Usuario user : listaUsuarios) {
 			  	linea = "";
 				linea += "----------------------------------------------------------\n";
 				linea += "Itinerario para: " + user.getNombre() + "\n";
-				linea += Visualizador.generarItinerarioPorUsuario(user);
+				linea += view.generarItinerarioPorUsuario(user);
 				itinerarios.add(linea);		
 		  }
 		  
@@ -115,7 +142,7 @@ public class Archivo {
 		  
 	  }
 	
-	  private static Atraccion crearAtraccion(String[] datos) {
+	private Atraccion crearAtraccion(String[] datos) {
 		  
 		  switch(datos[4]) {
 			 case "Aventura":
@@ -140,7 +167,7 @@ public class Archivo {
 		  
 	  }
 	  
-	  private static Usuario crearUsuario(String[] datos) {
+	private Usuario crearUsuario(String[] datos) {
 		  switch(datos[3]) {
 			 case "Aventura":
 				 return new Usuario(

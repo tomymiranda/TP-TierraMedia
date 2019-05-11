@@ -6,13 +6,13 @@ import componentes.*;
 
 public class Visualizador {
 	
-	public static void mostrarLista(List lista){
+	public void mostrarLista(List lista){
 		for (Object item : lista) {
 			   System.out.println("["+ (lista.indexOf(item)+1) +"] - " + item.toString());
 		}
 	}
 	
-	public static String generarItinerarioPorUsuario(Usuario usuario) {
+	public  String generarItinerarioPorUsuario(Usuario usuario) {
 		int totalMonedas = 0;
 		double totalTiempo = 0;
 		String listado = "";
@@ -28,7 +28,7 @@ public class Visualizador {
 		return listado;
 	}
 	
-	public static void log(String texto) {
+	public void log(String texto) {
 		System.out.println(texto);
 	}
 }

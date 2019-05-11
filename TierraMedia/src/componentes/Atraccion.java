@@ -61,11 +61,11 @@ public class Atraccion implements Comparable<Atraccion> {
 	public TipoDeAtracciones getTipo() {
 		return this.tipo;
 	}
-	
-	static public List getAtracciones() throws Exception{
+	/*
+	public List getAtracciones() throws Exception{
 		return Archivo.Leer("Atracciones");
 	}
-	
+	*/
 	@Override
 	public String toString() {
 		return this.getNombre() + " | "  + this.getCosto() + " | "  + this.getTiempoDeDuracion()  + " | "  + this.getcapacidadRestante()  + " | "  + this.getTipo();
