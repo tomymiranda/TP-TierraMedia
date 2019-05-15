@@ -40,6 +40,14 @@ public class Promocion {
 			tiempoRequerido += atr.getTiempoDeDuracion();
 		}
 	}
+	
+	public double getTiempoDeDuracion() {
+		return tiempoRequerido;
+	}
+	
+	public List<Atraccion> getAtracciones(){
+		return atracciones;
+	}
 
 	@Override
 	public String toString() {

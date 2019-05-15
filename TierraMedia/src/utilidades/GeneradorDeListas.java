@@ -26,5 +26,20 @@ public class GeneradorDeListas {
 			
 			return listadoAtracciones;
 	}
-	
+
+	public List<Promocion> armarPosiblesPromocionesParaUsuario(Usuario usuario, List<Promocion> listaPromociones){
+		Comparator<Promocion> comparador = new Comparator<Promocion>() {
+			@Override
+			public int compare(Promocion a1, Promocion a2) {
+					return a1.getCosto() > a2.getCosto() ? -1 : 1;
+			}
+		};
+		
+		Collections.sort(listaPromociones, comparador);
+		
+		listaPromociones.removeIf(item -> item.getCosto() > usuario.getCantidadDeMonedas() || 
+				item.getTiempoDeDuracion() > usuario.getTiempoDisponible());
+		
+		return listaPromociones;
+	}
 }

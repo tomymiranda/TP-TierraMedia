@@ -11,6 +11,7 @@ public class Usuario {
 	private double tiempoDisponible;
 	private TipoDeAtracciones tipoDeAtraccionPredilecta;
 	private List<Atraccion> atraccionesSeleccionadas = new ArrayList<Atraccion>();
+	private List<Promocion> promocionesSeleccionadas = new ArrayList<Promocion>();
 
 	public Usuario(String nombre, int cantidadDeMonedas, double tiempoDisponible, TipoDeAtracciones tipo) {
 
@@ -59,6 +60,14 @@ public class Usuario {
 	
 	public List<Atraccion> getListaAtracciones(){
 		return this.atraccionesSeleccionadas;
+	}
+	
+	public void addPromocion(Promocion promocion) {
+		promocionesSeleccionadas.add(promocion);
+	}
+	
+	public List<Promocion> getPromocionesSeleccionadas(){
+		return promocionesSeleccionadas;
 	}
 	
 	public String getMonedasYTiempoRestante() {

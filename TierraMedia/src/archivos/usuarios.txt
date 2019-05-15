@@ -1,4 +1,4 @@
-Frodo,10,8,Aventura
+Frodo,60,8,Aventura
 Gandalf,100,5,Paisaje
 Sam,36,8,Degustacion
 Aragorn,20,4,Aventura
