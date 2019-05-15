@@ -21,10 +21,7 @@ Una vez cargados los datos de atracciones y/o promociones para todos los usuario
   - itinerario
   - usuarios
 - componentes
-  - Absoluta
   - Atraccion
-  - AxB
-  - Porcentual
   - Promocion
   - TipoDeAtracciones
   - Usuario
@@ -38,6 +35,10 @@ Una vez cargados los datos de atracciones y/o promociones para todos los usuario
   - warning
 - principal
   - Principal
+- promociones
+  - Absoluta
+  - AxB
+  - Porcentual
 - pruebas
   - Usuario
   - UsuarioTest
