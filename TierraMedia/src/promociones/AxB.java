@@ -1,6 +1,8 @@
-package componentes;
+package promociones;
 
 import java.util.Date;
+
+import componentes.Promocion;
 
 public class AxB extends Promocion {
 

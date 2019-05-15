@@ -10,30 +10,35 @@ public class Menu {
 
 	private List<Atraccion> listaAtraccionesUsuario; 
 	private List<Atraccion> atraccionesParaUsuario;
+	private List<Promocion> listasPromociones;
+	private List<Promocion> listasPromocionesParaUsuario;
 	private int atraccionSeleccionada;
+	List<Usuario> listaUsuarios;
+	List<Atraccion> listaAtraccionesGeneral;
 	Visualizador view = new Visualizador();
 	Archivo archivo = new Archivo();
 	GeneradorDeListas generador = new GeneradorDeListas();
 	
 	public void ejecutar() {
-		List<Usuario> listaUsuarios = archivo.LeerUsuarios("usuarios");
-		List<Atraccion> listaAtraccionesGeneral = archivo.LeerAtracciones("atracciones");
+		leerArchivos();
 		
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		if(listaUsuarios.size() > 0 && listaAtraccionesGeneral.size() > 0) {
 			
 		try {
-			view.log("Menu" + listaUsuarios);
 			for(Usuario usuario : listaUsuarios) {
 				listaAtraccionesUsuario = new ArrayList<Atraccion>();
 				listaAtraccionesUsuario.addAll(listaAtraccionesGeneral);
+				//listasPromocionesParaUsuario.addAll(listasPromociones);
+				
 				atraccionesParaUsuario = generador.armarPosiblesAtraccionesParaUsuario(usuario, listaAtraccionesUsuario);
 				
 					while(atraccionesParaUsuario.size() > 0) {
 						atraccionSeleccionada = 0;
 						view.log("--------------------------------------------------------\n");
-						view.log("Atracciones para " + usuario.getNombre() + "\n");
+						view.log("Atracciones & Promociones para " + usuario.getNombre() + "\n");
 						view.log(usuario.getMonedasYTiempoRestante());
+						//view.mostrarLista(listasPromociones);
 						view.mostrarLista(atraccionesParaUsuario);
 						view.log("Seleccione una opcion: ");
 						atraccionSeleccionada = Integer.parseInt(in.readLine())-1;
@@ -68,6 +73,18 @@ public class Menu {
 		}
 		else {
 			view.log("Listas vacias");
+		}
+		
+	}
+	
+	private void leerArchivos() {
+		try {
+			listaUsuarios = archivo.LeerUsuarios("usuarios");
+			listaAtraccionesGeneral = archivo.LeerAtracciones("atracciones");
+			//listasPromociones = archivo.LeerPromociones("promociones", listaAtraccionesGeneral);
+		}
+		catch(Exception e){
+			System.out.print(e.getMessage());
 		}
 		
 	}

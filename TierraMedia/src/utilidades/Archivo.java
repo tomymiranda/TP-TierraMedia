@@ -2,6 +2,7 @@ package utilidades;
 import java.io.*;
 import java.util.*;
 import componentes.*;
+import promociones.Porcentual;
 
 public class Archivo {
 	
@@ -87,16 +88,16 @@ public List<Atraccion> LeerAtracciones(String path) {
 		return listaAtracciones;
 	}
 	
-	public  String RutaActual () {
-		  	String ruta = "";
-		     File directorio = new File (".");
-		     try {
-		    	 ruta = directorio.getCanonicalPath();
-		       }catch(Exception e) {
-		    	   e.printStackTrace();
-		       }
-			return ruta;
-		  }
+public  String RutaActual () {
+	  	String ruta = "";
+	     File directorio = new File (".");
+	     try {
+	    	 ruta = directorio.getCanonicalPath();
+	       }catch(Exception e) {
+	    	   e.printStackTrace();
+	       }
+		return ruta;
+	  }
 	  
 	public void guardar( List<String> datos ){
 		  
@@ -193,4 +194,70 @@ public List<Atraccion> LeerAtracciones(String path) {
 		 }
 		  
 	  }
+	
+	public List<Promocion> LeerPromociones(String path, List<Atraccion> listaAtracciones) {
+
+		String ruta = RutaActual() + File.separator + RAIZ + File.separator + CARPETA + File.separator
+				+ path.toLowerCase() + EXTENSION;
+		List<Promocion> listaPromociones = new ArrayList<Promocion>();
+		List<Atraccion> atracciones = null;
+		try {
+			//Metodo general
+			File archivo = new File(ruta);
+			FileReader fileReader;
+			fileReader = new FileReader(archivo);
+			BufferedReader bufferReader = new BufferedReader(fileReader);
+
+			while ((linea = bufferReader.readLine()) != null) {
+				String[] datos = linea.split(";");
+				atracciones = new ArrayList<Atraccion>();
+
+				for(String atr : datos[1].split(SEPARADOR)) {
+					atracciones.add(listaAtracciones.get(obtenerIndice(atr, listaAtracciones)-1));
+				}	
+				
+				listaPromociones.add(crearPromocion(datos[0],atracciones, datos[2], datos[3]));
+
+			}
+			
+			//
+		} catch (IOException e) {
+			// Exception problema al leer el archivo
+			e.printStackTrace();
+		} finally {
+			try {
+				if (bufferReader != null)
+					bufferReader.close();
+			} catch (IOException e) {
+				// Exception que no se pudo cerrar el reader
+				e.printStackTrace();
+			}
+		}
+
+		return listaPromociones;
+	}
+	
+	private Promocion crearPromocion(String nombre, List<Atraccion> atracciones, String tipo, String descripcion) {
+		
+			switch (tipo) {
+				case "Porcentual":
+					return new Porcentual(nombre, atracciones, descripcion);
+				default: 
+					return null;
+			}
+	}
+	
+	private int obtenerIndice(String dato, List<Atraccion> lista) {
+		
+		ListIterator<Atraccion> itr = lista.listIterator(0);
+		
+		while(itr.hasNext()) {
+			if(itr.next().getNombre().equals(dato)) {
+				return itr.nextIndex();				
+			}
+		};
+		
+		return -1;
+		
+	}
 }

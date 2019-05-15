@@ -1,25 +1,28 @@
 ----------------------------------------------------------
 Itinerario para: Frodo
-- Atraccion: Minas Tirith | Tiempo de Duracion: 2.5
 - Atraccion: Bosque Negro | Tiempo de Duracion: 4.0
-Total de monedas requeridas: 8 | Total de tiempo requerido: 6.5
+- Atraccion: Abismo de Helm | Tiempo de Duracion: 2.0
+Total de monedas requeridas: 8 | Total de tiempo requerido: 6.0
 ----------------------------------------------------------
 Itinerario para: Gandalf
-- Atraccion: Lothorien | Tiempo de Duracion: 1.0
-- Atraccion: Mordor | Tiempo de Duracion: 3.0
-Total de monedas requeridas: 60 | Total de tiempo requerido: 4.0
+- Atraccion: Lothlorien | Tiempo de Duracion: 1.0
+- Atraccion: Minas Tirith | Tiempo de Duracion: 2.5
+Total de monedas requeridas: 40 | Total de tiempo requerido: 3.5
 ----------------------------------------------------------
 Itinerario para: Sam
-- Atraccion: La Comarca | Tiempo de Duracion: 6.5
-Total de monedas requeridas: 3 | Total de tiempo requerido: 6.5
+- Atraccion: Mordor | Tiempo de Duracion: 3.0
+- Atraccion: Minas Tirith | Tiempo de Duracion: 2.5
+- Atraccion: Abismo de Helm | Tiempo de Duracion: 2.0
+Total de monedas requeridas: 35 | Total de tiempo requerido: 7.5
 ----------------------------------------------------------
 Itinerario para: Aragorn
-- Atraccion: Moria | Tiempo de Duracion: 2.0
-Total de monedas requeridas: 10 | Total de tiempo requerido: 2.0
+- Atraccion: Bosque Negro | Tiempo de Duracion: 4.0
+Total de monedas requeridas: 3 | Total de tiempo requerido: 4.0
 ----------------------------------------------------------
 Itinerario para: Legolas
-- Atraccion: Minas Tirith | Tiempo de Duracion: 2.5
-Total de monedas requeridas: 5 | Total de tiempo requerido: 2.5
+- Atraccion: Abismo de Helm | Tiempo de Duracion: 2.0
+Total de monedas requeridas: 5 | Total de tiempo requerido: 2.0
 ----------------------------------------------------------
 Itinerario para: Smeagle
-Total de monedas requeridas: 0 | Total de tiempo requerido: 0.0
+- Atraccion: Lothlorien | Tiempo de Duracion: 1.0
+Total de monedas requeridas: 35 | Total de tiempo requerido: 1.0

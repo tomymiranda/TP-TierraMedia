@@ -4,11 +4,19 @@ import java.util.*;
 
 public class Promocion {
 
+	private String nombre;
 	private int costo;
+	//private Calendar validoHasta;
+	private List<Atraccion> atracciones;
+	private String descripcion;
+	
 
-	public Promocion(int costo, Date validoDesde, Date validoHasta) {
-
-		this.costo = costo;
+	public Promocion(String nombre, List<Atraccion> atracciones, String descripcion) {
+		this.nombre = nombre;
+		//this.costo = costo;
+		//this.validoHasta = validoHasta;
+		this.atracciones = atracciones;
+		this.descripcion = descripcion;
 	}
 
 	public int getCosto() {
@@ -20,6 +28,10 @@ public class Promocion {
 	}
 
 	public void recorridoListaDeAtracciones() {
+	}
+	@Override
+	public String toString() {
+		return "Promo Nombre: " + nombre;
 	}
 
 }
