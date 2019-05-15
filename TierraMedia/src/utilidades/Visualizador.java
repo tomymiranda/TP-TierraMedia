@@ -37,4 +37,14 @@ public class Visualizador {
 	public void log(String texto) {
 		System.out.println(texto);
 	}
+	
+	public void mostrarMenu(Usuario usuario, List<Atraccion> atraccionesParaUsuario, List<Promocion> promocionesParaUsuario) {
+		log("--------------------------------------------------------\n");
+		log("Atracciones & Promociones para " + usuario.getNombre() + "\n");
+		log(usuario.getMonedasYTiempoRestante());
+		
+		mostrarLista(promocionesParaUsuario,0);
+		mostrarLista(atraccionesParaUsuario, promocionesParaUsuario.size());
+		log("Seleccione una opcion: ");
+	}
 }
