@@ -6,9 +6,9 @@ import componentes.*;
 
 public class Visualizador {
 	
-	public void mostrarLista(List lista){
+	public <T> void mostrarLista(List<T> lista, int indiceAnterior){
 		for (Object item : lista) {
-			   System.out.println("["+ (lista.indexOf(item)+1) +"] - " + item.toString());
+			   System.out.println("["+ (indiceAnterior + lista.indexOf(item)+1) +"] - " + item.toString());
 		}
 	}
 	

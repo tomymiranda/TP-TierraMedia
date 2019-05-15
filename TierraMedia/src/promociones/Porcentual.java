@@ -17,6 +17,7 @@ public class Porcentual extends Promocion {
 		
 		this.atracciones = atracciones;
 		calcularCosto();
+		super.setCosto(costo);
 	}
 
 	private void calcularCosto() {
@@ -32,5 +33,7 @@ public class Porcentual extends Promocion {
 	public int getCostoConDescuento() {
 		return costoDescuento;
 	}
+	
+
 
 }

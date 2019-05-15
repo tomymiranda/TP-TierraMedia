@@ -196,7 +196,7 @@ public  String RutaActual () {
 	  }
 	
 	public List<Promocion> LeerPromociones(String path, List<Atraccion> listaAtracciones) {
-
+	
 		String ruta = RutaActual() + File.separator + RAIZ + File.separator + CARPETA + File.separator
 				+ path.toLowerCase() + EXTENSION;
 		List<Promocion> listaPromociones = new ArrayList<Promocion>();
@@ -210,6 +210,7 @@ public  String RutaActual () {
 
 			while ((linea = bufferReader.readLine()) != null) {
 				String[] datos = linea.split(";");
+				
 				atracciones = new ArrayList<Atraccion>();
 
 				for(String atr : datos[1].split(SEPARADOR)) {
@@ -223,14 +224,14 @@ public  String RutaActual () {
 			//
 		} catch (IOException e) {
 			// Exception problema al leer el archivo
-			e.printStackTrace();
+			System.out.println("Error Armado de listas " + e.getMessage());
 		} finally {
 			try {
 				if (bufferReader != null)
 					bufferReader.close();
 			} catch (IOException e) {
 				// Exception que no se pudo cerrar el reader
-				e.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 		}
 
@@ -238,7 +239,7 @@ public  String RutaActual () {
 	}
 	
 	private Promocion crearPromocion(String nombre, List<Atraccion> atracciones, String tipo, String descripcion) {
-		
+
 			switch (tipo) {
 				case "Porcentual":
 					return new Porcentual(nombre, atracciones, descripcion);
@@ -249,12 +250,11 @@ public  String RutaActual () {
 	
 	private int obtenerIndice(String dato, List<Atraccion> lista) {
 		
-		ListIterator<Atraccion> itr = lista.listIterator(0);
-		
+		ListIterator<Atraccion> itr = lista.listIterator();
+
 		while(itr.hasNext()) {
-			if(itr.next().getNombre().equals(dato)) {
-				return itr.nextIndex();				
-			}
+			if(itr.next().getNombre().equals(dato))
+				return itr.nextIndex();
 		};
 		
 		return -1;

@@ -10,9 +10,9 @@ public class Menu {
 
 	private List<Atraccion> listaAtraccionesUsuario; 
 	private List<Atraccion> atraccionesParaUsuario;
-	private List<Promocion> listasPromociones;
-	private List<Promocion> listasPromocionesParaUsuario;
-	private int atraccionSeleccionada;
+	private List<Promocion> listaPromociones;
+	List<Promocion> listaPromocionesParaUsuario;
+	private int opcionSeleccionada;
 	List<Usuario> listaUsuarios;
 	List<Atraccion> listaAtraccionesGeneral;
 	Visualizador view = new Visualizador();
@@ -29,33 +29,38 @@ public class Menu {
 			for(Usuario usuario : listaUsuarios) {
 				listaAtraccionesUsuario = new ArrayList<Atraccion>();
 				listaAtraccionesUsuario.addAll(listaAtraccionesGeneral);
-				//listasPromocionesParaUsuario.addAll(listasPromociones);
+				listaPromocionesParaUsuario = new ArrayList<Promocion>();
+				listaPromocionesParaUsuario.addAll(listaPromociones);
 				
 				atraccionesParaUsuario = generador.armarPosiblesAtraccionesParaUsuario(usuario, listaAtraccionesUsuario);
-				
+				//listaPromocionesParaUsuario = generador.armarPosiblesPromocionesParaUsuario(usuario, listaPromociones);
 					while(atraccionesParaUsuario.size() > 0) {
-						atraccionSeleccionada = 0;
+						opcionSeleccionada = 0;
 						view.log("--------------------------------------------------------\n");
 						view.log("Atracciones & Promociones para " + usuario.getNombre() + "\n");
 						view.log(usuario.getMonedasYTiempoRestante());
-						//view.mostrarLista(listasPromociones);
-						view.mostrarLista(atraccionesParaUsuario);
+						view.mostrarLista(listaPromocionesParaUsuario,0);
+						view.mostrarLista(atraccionesParaUsuario, listaPromocionesParaUsuario.size());
 						view.log("Seleccione una opcion: ");
-						atraccionSeleccionada = Integer.parseInt(in.readLine())-1;
+						opcionSeleccionada = Integer.parseInt(in.readLine())-1;
 						
 						
-						if(atraccionSeleccionada > -1 && atraccionesParaUsuario.size() > atraccionSeleccionada) {	
+						if(opcionSeleccionada > -1 && listaPromocionesParaUsuario.size() > opcionSeleccionada) {	
+							if(opcionSeleccionada > atraccionesParaUsuario.size()){
+								view.log("Se selecciono la atraccion: " + atraccionesParaUsuario.get(opcionSeleccionada).getNombre());
+								try {
+									usuario.addAtraccion(atraccionesParaUsuario.get(opcionSeleccionada));
+									usuario.setCantidadDeMonedas(usuario.getCantidadDeMonedas() - atraccionesParaUsuario.get(opcionSeleccionada).getCosto());
+									usuario.setTiempoDisponible(usuario.getTiempoDisponible() - atraccionesParaUsuario.get(opcionSeleccionada).getTiempoDeDuracion());
+									atraccionesParaUsuario.get(opcionSeleccionada).setcapacidadRestante(atraccionesParaUsuario.get(opcionSeleccionada).getcapacidadRestante()-1);
+								}
+								catch(Exception e) {
+									System.out.println("Error: " + e.getMessage());
+								}
+							} else if (opcionSeleccionada < atraccionesParaUsuario.size()) {
+								view.log("Se selecciono la promocion: " + listaPromocionesParaUsuario.get(opcionSeleccionada).getNombre());
+							}
 							
-							view.log("Se selecciono la atraccion: " + atraccionesParaUsuario.get(atraccionSeleccionada).getNombre());
-							try {
-								usuario.addAtraccion(atraccionesParaUsuario.get(atraccionSeleccionada));
-								usuario.setCantidadDeMonedas(usuario.getCantidadDeMonedas() - atraccionesParaUsuario.get(atraccionSeleccionada).getCosto());
-								usuario.setTiempoDisponible(usuario.getTiempoDisponible() - atraccionesParaUsuario.get(atraccionSeleccionada).getTiempoDeDuracion());
-								atraccionesParaUsuario.get(atraccionSeleccionada).setcapacidadRestante(atraccionesParaUsuario.get(atraccionSeleccionada).getcapacidadRestante()-1);
-							}
-							catch(Exception e) {
-								System.out.println("Error: " + e.getMessage());
-							}
 						}
 						else {
 							view.log("Numero invalido");
@@ -81,10 +86,10 @@ public class Menu {
 		try {
 			listaUsuarios = archivo.LeerUsuarios("usuarios");
 			listaAtraccionesGeneral = archivo.LeerAtracciones("atracciones");
-			//listasPromociones = archivo.LeerPromociones("promociones", listaAtraccionesGeneral);
+			listaPromociones = archivo.LeerPromociones("promociones", listaAtraccionesGeneral);
 		}
 		catch(Exception e){
-			System.out.print(e.getMessage());
+			System.out.print("LeerArchivo " + e.getMessage());
 		}
 		
 	}
