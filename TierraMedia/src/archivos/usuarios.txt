@@ -1,5 +1,5 @@
 Frodo,60,8,Aventura
-Gandalf,100,5,Paisaje
+Gandalf,100,10,Paisaje
 Sam,36,8,Degustacion
 Aragorn,20,4,Aventura
 Legolas,6,4,Paisaje

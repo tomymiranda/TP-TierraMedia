@@ -41,26 +41,36 @@ public class Menu {
 				atraccionesParaUsuario = generador.armarPosiblesAtraccionesParaUsuario(usuario, listaAtraccionesUsuario);
 				promocionesParaUsuario = generador.armarPosiblesPromocionesParaUsuario(usuario, listaPromocionesGeneral);
 				
-					while(atraccionesParaUsuario.size() > 0) {
+					while(atraccionesParaUsuario.size() > 0 || promocionesParaUsuario.size() > 0) {
 						opcionSeleccionada = 0;
 						view.log("--------------------------------------------------------\n");
 						view.log("Atracciones & Promociones para " + usuario.getNombre() + "\n");
 						view.log(usuario.getMonedasYTiempoRestante());
+						
 						view.mostrarLista(promocionesParaUsuario,0);
 						view.mostrarLista(atraccionesParaUsuario, promocionesParaUsuario.size());
-						view.log("Seleccione una opcion: ");
 						
+						view.log("Seleccione una opcion: ");
 						opcionSeleccionada = Integer.parseInt(in.readLine())-1;
+						
 						int totalItems = listaPromocionesParaUsuario.size()+listaAtraccionesUsuario.size();
 						
+						System.out.println(opcionSeleccionada);
 						if (opcionSeleccionada > -1 && totalItems > opcionSeleccionada) {	
-							view.log("if " + opcionSeleccionada);
-							view.log("Atracciones: " + atraccionesParaUsuario.size());
-							view.log("Promo: " + promocionesParaUsuario.size());
-							
+														
 							if (opcionSeleccionada < promocionesParaUsuario.size()) {
-								view.log("Selec Promo");
+								// Se selecciono Promocion
 								view.log("Se selecciono la promocion: " + promocionesParaUsuario.get(opcionSeleccionada).getNombre());
+								
+								try {
+									usuario.addPromocion(promocionesParaUsuario.get(opcionSeleccionada));
+									usuario.setCantidadDeMonedas(usuario.getCantidadDeMonedas() - promocionesParaUsuario.get(opcionSeleccionada).getCosto());
+									usuario.setTiempoDisponible(usuario.getTiempoDisponible() - promocionesParaUsuario.get(opcionSeleccionada).getTiempoDeDuracion());
+									
+								}
+								catch(Exception e) {
+									view.log("Error al agregar promocion: " + e.getMessage());
+								}
 							}
 							else if ((opcionSeleccionada-promocionesParaUsuario.size()) < atraccionesParaUsuario.size()){
 								opcionSeleccionada -= promocionesParaUsuario.size();
@@ -78,14 +88,14 @@ public class Menu {
 							}  else {
 								view.log("Numero invalido 2");
 							}
-							
+							// Se refrescan las listas de posibles opciones
+							atraccionesParaUsuario = generador.armarPosiblesAtraccionesParaUsuario(usuario, atraccionesParaUsuario);
+							promocionesParaUsuario = generador.armarPosiblesPromocionesParaUsuario(usuario, listaPromocionesGeneral);
 						}
 						else {
 							view.log("Numero invalido");
 						}
-						// Se refrescan las listas de posibles opciones
-						atraccionesParaUsuario = generador.armarPosiblesAtraccionesParaUsuario(usuario, atraccionesParaUsuario);
-						promocionesParaUsuario = generador.armarPosiblesPromocionesParaUsuario(usuario, promocionesParaUsuario);
+						
 					}
 			};
 			archivo.generarItinerarios(listaUsuarios);

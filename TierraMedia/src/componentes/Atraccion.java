@@ -1,8 +1,5 @@
 package componentes;
 
-import utilidades.*;
-import java.util.*;
-
 public class Atraccion implements Comparable<Atraccion> {
 
 	private String nombre;

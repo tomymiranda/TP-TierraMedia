@@ -2,8 +2,6 @@ package componentes;
 
 import java.util.*;
 
-import utilidades.Archivo;
-
 public class Usuario {
 
 	private String nombre;

@@ -27,7 +27,7 @@ public class Archivo {
 			File archivo = new File (ruta);
 			FileReader fileReader;
 			fileReader = new FileReader (archivo);
-			BufferedReader bufferReader = new BufferedReader(fileReader);
+			bufferReader = new BufferedReader(fileReader);
 			
 			while ((linea = bufferReader.readLine()) != null) {
 				String[] datos = linea.split(SEPARADOR);
@@ -62,7 +62,7 @@ public List<Atraccion> LeerAtracciones(String path) {
 			File archivo = new File (ruta);
 			FileReader fileReader;
 			fileReader = new FileReader (archivo);
-			BufferedReader bufferReader = new BufferedReader(fileReader);
+			bufferReader = new BufferedReader(fileReader);
 			
 			while ((linea = bufferReader.readLine()) != null) {
 				String[] datos = linea.split(SEPARADOR);
@@ -206,7 +206,7 @@ public  String RutaActual () {
 			File archivo = new File(ruta);
 			FileReader fileReader;
 			fileReader = new FileReader(archivo);
-			BufferedReader bufferReader = new BufferedReader(fileReader);
+			bufferReader = new BufferedReader(fileReader);
 
 			while ((linea = bufferReader.readLine()) != null) {
 				String[] datos = linea.split(";");

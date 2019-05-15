@@ -38,7 +38,8 @@ public class GeneradorDeListas {
 		Collections.sort(listaPromociones, comparador);
 		
 		listaPromociones.removeIf(item -> item.getCosto() > usuario.getCantidadDeMonedas() || 
-				item.getTiempoDeDuracion() > usuario.getTiempoDisponible());
+				item.getTiempoDeDuracion() > usuario.getTiempoDisponible() ||
+				usuario.getPromocionesSeleccionadas().contains(item));
 		
 		return listaPromociones;
 	}

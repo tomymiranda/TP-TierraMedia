@@ -1,24 +1,27 @@
 ----------------------------------------------------------
 Itinerario para: Frodo
-- Atraccion: Moria | Tiempo de Duracion: 2.0
-Total de monedas requeridas: 10 | Total de tiempo requerido: 2.0
+- Promocion: Pack aventura | Tiempo de Duracion: 7.0
+Total de monedas requeridas: 28 | Total de tiempo requerido: 7.0
 ----------------------------------------------------------
 Itinerario para: Gandalf
-- Atraccion: Mordor | Tiempo de Duracion: 3.0
-- Atraccion: Moria | Tiempo de Duracion: 2.0
-Total de monedas requeridas: 35 | Total de tiempo requerido: 5.0
+- Atraccion: Erebor | Tiempo de Duracion: 4.0
+- Atraccion: Lothlorien | Tiempo de Duracion: 1.0
+Total de monedas requeridas: 47 | Total de tiempo requerido: 5.0
 ----------------------------------------------------------
 Itinerario para: Sam
-- Atraccion: Lothlorien | Tiempo de Duracion: 1.0
-Total de monedas requeridas: 35 | Total de tiempo requerido: 1.0
+- Atraccion: Bosque Negro | Tiempo de Duracion: 4.0
+- Atraccion: Moria | Tiempo de Duracion: 2.0
+- Atraccion: Abismo de Helm | Tiempo de Duracion: 2.0
+Total de monedas requeridas: 18 | Total de tiempo requerido: 8.0
 ----------------------------------------------------------
 Itinerario para: Aragorn
-- Atraccion: Bosque Negro | Tiempo de Duracion: 4.0
-Total de monedas requeridas: 3 | Total de tiempo requerido: 4.0
+- Atraccion: Moria | Tiempo de Duracion: 2.0
+- Atraccion: Abismo de Helm | Tiempo de Duracion: 2.0
+Total de monedas requeridas: 15 | Total de tiempo requerido: 4.0
 ----------------------------------------------------------
 Itinerario para: Legolas
-- Atraccion: Abismo de Helm | Tiempo de Duracion: 2.0
-Total de monedas requeridas: 5 | Total de tiempo requerido: 2.0
+- Atraccion: Minas Tirith | Tiempo de Duracion: 2.5
+Total de monedas requeridas: 5 | Total de tiempo requerido: 2.5
 ----------------------------------------------------------
 Itinerario para: Smeagle
 - Atraccion: Lothlorien | Tiempo de Duracion: 1.0

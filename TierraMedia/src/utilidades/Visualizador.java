@@ -22,6 +22,12 @@ public class Visualizador {
 			totalTiempo += atraccion.getTiempoDeDuracion();
 			listado += "- Atraccion: " + atraccion.getNombre() + " | Tiempo de Duracion: " + atraccion.getTiempoDeDuracion() + "\n";
 		}
+		
+		for(Promocion promo : usuario.getPromocionesSeleccionadas()) {
+			totalMonedas += promo.getCosto();
+			totalTiempo += promo.getTiempoDeDuracion();
+			listado += "- Promocion: " + promo.getNombre() + " | Tiempo de Duracion: " + promo.getTiempoDeDuracion() + "\n";
+		}
 				
 		listado += "Total de monedas requeridas: " + totalMonedas + " | Total de tiempo requerido: " + totalTiempo + "\n";
 		
