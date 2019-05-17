@@ -2,26 +2,23 @@ package pruebas;
 
 import org.junit.*;
 
-import componentes.*;
+import componentes.TipoDeAtracciones;
+import componentes.Usuario;
 
 public class UsuarioTest {
 
-	Usuario usuario;
-	
-	@Before
-	public void crearUsuario() {
-		usuario = new Usuario("frodo", 100, 18.30, TipoDeAtracciones.Aventura);
-	}
-	
 	@Test
 	public void seCreaUsuario() {
-		Assert.assertNotNull(usuario);
+		Usuario frodo = new Usuario("frodo", 100, 18.30, TipoDeAtracciones.Aventura);
+		Assert.assertNotNull(frodo);
 
 	}
 
 	@Test
-	public void obtenerNombre() {
-		Assert.assertEquals("frodo", usuario.getNombre());
+	public void seObtieneElNombreFrodo() {
+		Usuario frodo = new Usuario("frodo", 100, 18.30, TipoDeAtracciones.Aventura);
+		String a = frodo.getNombre();
+		Assert.assertEquals("frodo", a);
 	}
 
 	@Test
@@ -38,13 +35,8 @@ public class UsuarioTest {
 		Assert.assertEquals(18.30, b, 0.001);
 	}
 
-	@Test
-	public void seAsignaAtraccionAUsuario() {
-		usuario.addAtraccion(new Atraccion("Moria",10,2.0,6,TipoDeAtracciones.Paisaje));
-		Assert.assertTrue(usuario.getListaAtracciones().size() > 0);
-	}
 
-	
+
 
 
 }
