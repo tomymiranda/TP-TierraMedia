@@ -4,4 +4,3 @@ Pack paisajes;Minas Tirith,Abismo de Helm,Erebor;AxBE;Erebor;Comprando Minas Tir
 Pack ahorro;Mordor,Lothlorien;Porcentual;40;Comprando Mordor y Lothlorien obtenes un 40% de descuento del total
 Pack mixto Standard;Moria,Minas Tirith,La Comarca;Absoluta;10;Comprando Moria, Minas Tirith y La Comarca te llevas el paquete por 10 monedas
 Pack mixto Premium;Mordor,Abismo de Helm,Lothlorien;AxB;Lothlorien;Comprando Mordor y el Abismo de Helm vas a Lothlorien gratis
-
