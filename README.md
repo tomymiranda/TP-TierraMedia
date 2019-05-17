@@ -20,32 +20,35 @@ Una vez cargados los datos de atracciones y/o promociones para todos los usuario
   - atracciones
   - itinerario
   - usuarios
+  - promociones
 - componentes
   - Atraccion
   - Promocion
   - TipoDeAtracciones
   - Usuario
-- errores
+- excepciones
   - AtraccionYaOfrecidaException
   - MeQuedeSinPlataException
   - MeQuedeSinTiempoException
   - YaNoHayAtraccionesParaOfrecerException
-- excepciones
-  - errors
-  - warning
 - principal
   - Principal
+  - Menu
 - promociones
   - Absoluta
   - AxB
   - Porcentual
 - pruebas
-  - Usuario
   - UsuarioTest
-  - UsuarioTest
+  - AtracionTest
+  - VisualizadorTest
+  - PromocionTest
+  - AxBTest
+  - PorcentualTest
 - utilidades
   - Archivo
   - Visualizador
+  - GeneradorDeArchivos
 
 ### Componentes
 #### Absoluta
