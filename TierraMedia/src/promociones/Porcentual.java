@@ -9,35 +9,28 @@ public class Porcentual extends Promocion {
 
 	private List<Atraccion> atracciones;
 	private int costo = 0;
-	private int costoDescuento;
-	private int porcentaje;
-	
-	public Porcentual(String nombre, List<Atraccion> atracciones, String descripcion, int porcentaje) {
+	private int porcientoDescuento;
+
+	public Porcentual(String nombre, List<Atraccion> atracciones, int porcientoDescuento, String descripcion) {
 		super(nombre, atracciones, descripcion);
-		System.out.println("Porcentaje "+ porcentaje);
+
 		this.atracciones = atracciones;
-		this.porcentaje = porcentaje;
+		this.porcientoDescuento = porcientoDescuento;
 		calcularCosto();
-		aplicarDescuento();
 		super.setCosto(costo);
 	}
 
 	private void calcularCosto() {
-		for(Atraccion atr : atracciones) {
+		for (Atraccion atr : atracciones) {
 			costo += atr.getCosto();
 		}
 	}
-	
+
 	private void aplicarDescuento() {
-		if(porcentaje != 0) {
-			this.costo -= costo/(porcentaje/100)+1; 
-		}
+		costo -= costo * 100 / porcientoDescuento;
 	}
-	
-	public int getCostoConDescuento() {
-		return costoDescuento;
+
+	public int obtenerCosto() {
+		return costo;
 	}
-	
-
-
 }
