@@ -25,27 +25,29 @@ Una vez cargados los datos de atracciones y/o promociones para todos los usuario
   - Promocion
   - TipoDeAtracciones
   - Usuario
-- errores
+- excepciones
   - AtraccionYaOfrecidaException
   - MeQuedeSinPlataException
   - MeQuedeSinTiempoException
   - YaNoHayAtraccionesParaOfrecerException
-- excepciones
-  - errors
-  - warning
 - principal
   - Principal
+  - Menu
 - promociones
   - Absoluta
   - AxB
   - Porcentual
 - pruebas
-  - Usuario
   - UsuarioTest
-  - UsuarioTest
+  - AtraccionesTest
+  - PromocionTest
+  - PorcentualTest
+  - AxBTest
+  - VisualizadorTest
 - utilidades
   - Archivo
   - Visualizador
+  - GeneradorDeListas
 
 ### Componentes
 #### Absoluta
