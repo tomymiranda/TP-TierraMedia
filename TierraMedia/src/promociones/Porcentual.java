@@ -27,7 +27,7 @@ public class Porcentual extends Promocion {
 	}
 
 	private void aplicarDescuento() {
-		costo -= costo * 100 / porcientoDescuento;
+		costo -= (costo * porcientoDescuento) / 100;
 	}
 
 	public int obtenerCosto() {
