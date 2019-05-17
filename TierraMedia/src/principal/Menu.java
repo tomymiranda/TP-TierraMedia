@@ -16,7 +16,7 @@ public class Menu {
 	List<Promocion> listaPromocionesParaUsuario;
 	private List<Promocion> promocionesParaUsuario;
 	
-	List<Usuario> listaUsuarios;
+	private List<Usuario> listaUsuarios;
 
 	private int opcionSeleccionada;
 	Visualizador view = new Visualizador();
@@ -30,17 +30,18 @@ public class Menu {
 		if(listaUsuarios.size() > 0 && listaAtraccionesGeneral.size() > 0) {
 			
 		try {
+			System.out.println("Usuarios size" + listaUsuarios.size());
 			for(Usuario usuario : listaUsuarios) {
 				// Se clonan para no referenciar al original y no borrar elementos del original
 				listaAtraccionesUsuario = new ArrayList<Atraccion>();
 				listaAtraccionesUsuario.addAll(listaAtraccionesGeneral);
 				listaPromocionesParaUsuario = new ArrayList<Promocion>();
 				listaPromocionesParaUsuario.addAll(listaPromocionesGeneral);
-				
+
 				// Se generan los listados de opciones filtrados
 				atraccionesParaUsuario = generador.armarPosiblesAtraccionesParaUsuario(usuario, listaAtraccionesUsuario);
 				promocionesParaUsuario = generador.armarPosiblesPromocionesParaUsuario(usuario, listaPromocionesParaUsuario);
-				
+
 					while(atraccionesParaUsuario.size() > 0 || promocionesParaUsuario.size() > 0) {
 						opcionSeleccionada = 0;
 						view.mostrarMenu(usuario, atraccionesParaUsuario, promocionesParaUsuario);
@@ -55,11 +56,15 @@ public class Menu {
 								// Se selecciono Promocion
 								Promocion promocionSeleccionada = promocionesParaUsuario.get(opcionSeleccionada);
 								view.log("Se selecciono la promocion: " + promocionSeleccionada.getNombre());
-								view.log(usuario.getMonedasYTiempoRestante());
+								
 								try {
 									usuario.addPromocion(promocionSeleccionada);
 									usuario.setCantidadDeMonedas(usuario.getCantidadDeMonedas() - promocionSeleccionada.getCosto());
 									usuario.setTiempoDisponible(usuario.getTiempoDisponible() - promocionSeleccionada.getTiempoDeDuracion());
+									
+									for(Atraccion atr : promocionSeleccionada.getAtracciones()) {
+										atr.setcapacidadRestante(atr.getcapacidadRestante()-1);
+									}
 								}
 								catch(Exception e) {
 									view.log("Error al agregar promocion: " + e.getMessage());
@@ -95,7 +100,7 @@ public class Menu {
 		}
 		
 		catch(Exception e) {
-			System.err.println(e);
+			System.err.println("Error " + e);
 		}
 		
 		}
@@ -112,7 +117,7 @@ public class Menu {
 			listaPromocionesGeneral = archivo.LeerPromociones("promociones", listaAtraccionesGeneral);
 		}
 		catch(Exception e){
-			System.out.print("LeerArchivo " + e.getMessage());
+			e.printStackTrace();
 		}
 		
 	}

@@ -1,4 +1,4 @@
-package errores;
+package excepciones;
 
 public class MeQuedeSinTiempoException extends Exception {
 	public MeQuedeSinTiempoException() {
